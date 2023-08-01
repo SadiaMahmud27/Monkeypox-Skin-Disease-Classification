@@ -28,15 +28,15 @@ st.sidebar.dataframe(df)
 
 @st.cache_resource()
 def get_model():
-    loaded_model = tf.keras.models.load_model("./model/{}.h5".format('keras_model'), compile=False)
+    loaded_model = tf.keras.models.load_model("./web_app/model/{}.h5".format('keras_model'), compile=False)
     return loaded_model
 
 
 # Disable scientific notation for clarity
 np.set_printoptions(suppress=True)
-class_names = open("./model/labels.txt", "r").readlines()
+class_names = open("./web_app/model/labels.txt", "r").readlines()
 # Get list of saved h5 models, which will be displayed in option to load.  
-h5_file_list = [file for file in os.listdir("./model") if file.endswith(".h5")]
+h5_file_list = [file for file in os.listdir("./web_app/model") if file.endswith(".h5")]
 h5_file_names = [os.path.splitext(file)[0] for file in h5_file_list]
 model_type = st.radio("Selected model: ", h5_file_names)
 # with st.spinner("Loading model..."):
