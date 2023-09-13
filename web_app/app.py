@@ -7,21 +7,21 @@ from io import StringIO
 import tensorflow as tf
 
 st.set_page_config(
-    page_title="Monkeypox Classification",
+    page_title="Enhancing Monkeypox Diagnosis",
     page_icon="🧊",
     layout="centered",
     initial_sidebar_state="expanded",
 )
 
 st.title('Thesis')
-st.subheader('Monkeypox skin disease classification based on machine learning models: A viability study and analysis')
+st.subheader('Enhancing Monkeypox Diagnosis: A Machine Learning Approach for Skin Lesion Classification')
 st.divider()
 
 st.sidebar.title("Submitted by")
 df = pd.DataFrame(
     {
-        "ID": ["19101315", "19101320", "19101313", "19101137"],
-        "Name": ["Namirah Nazmee", "Sadia Mahmud", "Mashyat Samiha Ali", "Khusbo Alam"],
+        "ID": ["19101320", "19101315", "19101313", "19101137"],
+        "Name": ["Sadia Mahmud", "Namirah Nazmee", "Mashyat Samiha Ali", "Khusbo Alam"],
     }
 )
 st.sidebar.dataframe(df)
