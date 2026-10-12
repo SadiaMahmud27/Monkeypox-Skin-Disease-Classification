@@ -26,9 +26,20 @@ df = pd.DataFrame(
 )
 st.sidebar.dataframe(df)
 
+# The model was saved with Keras 2, which stored a 'groups' argument on
+# DepthwiseConv2D layers that Keras 3 no longer accepts. Drop it on load.
+class DepthwiseConv2DCompat(tf.keras.layers.DepthwiseConv2D):
+    def __init__(self, *args, groups=None, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
 @st.cache_resource()
 def get_model():
-    loaded_model = tf.keras.models.load_model("./web_app/model/{}.h5".format('keras_model'), compile=False)
+    loaded_model = tf.keras.models.load_model(
+        "./web_app/model/{}.h5".format('keras_model'),
+        compile=False,
+        custom_objects={"DepthwiseConv2D": DepthwiseConv2DCompat},
+    )
     return loaded_model
 
 
@@ -49,7 +60,7 @@ if uploaded_file is not None:
     # resizing the image to be at least 224x224 and then cropping from the center
     size = (224, 224)
     image = ImageOps.fit(image, size, Image.Resampling.LANCZOS)
-    st.image(image, use_column_width=False)
+    st.image(image)
     placeholder = st.empty()
     placeholder.text("Identifying Image...")
     # turn the image into a numpy array
