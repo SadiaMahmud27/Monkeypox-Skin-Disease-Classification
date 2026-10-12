@@ -1,3 +1,5 @@
 pandas
-numpy
-tensorflow
+numpy<2
+# keras_model.h5 is a Teachable Machine (Keras 2) export; Keras 3 (TF >= 2.16) can't load it
+tensorflow==2.15.1
+streamlit

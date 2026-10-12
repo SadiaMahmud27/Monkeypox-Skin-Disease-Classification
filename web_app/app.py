@@ -26,20 +26,9 @@ df = pd.DataFrame(
 )
 st.sidebar.dataframe(df)
 
-# The model was saved with Keras 2, which stored a 'groups' argument on
-# DepthwiseConv2D layers that Keras 3 no longer accepts. Drop it on load.
-class DepthwiseConv2DCompat(tf.keras.layers.DepthwiseConv2D):
-    def __init__(self, *args, groups=None, **kwargs):
-        super().__init__(*args, **kwargs)
-
-
 @st.cache_resource()
 def get_model():
-    loaded_model = tf.keras.models.load_model(
-        "./web_app/model/{}.h5".format('keras_model'),
-        compile=False,
-        custom_objects={"DepthwiseConv2D": DepthwiseConv2DCompat},
-    )
+    loaded_model = tf.keras.models.load_model("./web_app/model/{}.h5".format('keras_model'), compile=False)
     return loaded_model
 
 
